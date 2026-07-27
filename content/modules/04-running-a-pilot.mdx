@@ -1,0 +1,68 @@
+import { Callout } from "@/components/Callout";
+
+Here's the number that should shape how you think about this whole module: **95% of integrated AI pilots show no P&L impact.** Not because the models don't work — because most pilots are built to produce a good demo, not a real answer. This module is about designing a pilot that can't lie to you.
+
+<Callout type="data" title="The data">
+  95% of integrated AI pilots show no P&L impact, largely because organizations treat AI deployment as a technology project instead of a workflow change. (Source: WRITER, Enterprise AI Adoption in 2026 — see [Case Library](/cases))
+</Callout>
+
+## Demo theater vs. a real pilot
+
+A demo is built to impress a room. It's tested against clean, cherry-picked examples, presented by the person who built it, and it always goes well because the person presenting it knows exactly which questions to avoid asking it.
+
+A real pilot is tested against your actual, messy, current workflow — the same tickets, the same edge cases, the same incomplete data your team deals with every day. It's run by the people who'll use it if it succeeds, not the people who built it. And it's designed to fail visibly if it isn't working, rather than quietly disappearing after the demo.
+
+<Callout type="mistake">
+  If your "pilot" only ever gets tested on curated examples chosen to make it look good, you don't have a pilot. You have a demo with a longer runway before it dies.
+</Callout>
+
+## The four things to lock in before you start
+
+**1. The metric and the threshold.** From Module 1, you already have a baseline number. Now decide the target and the timeframe: "20% reduction in handling time, sustained over 4 weeks" — not "significant improvement," which can never be proven wrong.
+
+**2. A real, current workflow.** Route the pilot into an existing queue or process, not a sandboxed test environment. If the agent has never seen a genuinely ambiguous, half-complete, or contradictory input, you don't yet know how it behaves on the inputs that actually matter.
+
+**3. A single accountable owner.** Not a steering committee. One person whose job is to know, at any point, whether this pilot is working — and who has the authority to kill it if it isn't. Committees are where failing pilots go to survive indefinitely without ever succeeding.
+
+**4. A time box.** Six to eight weeks is a reasonable default for a narrowly-scoped process. If you haven't produced a measurable signal by then, that's information too — not a reason to extend indefinitely and hope.
+
+## Track outcomes, not activity
+
+It's tempting to report on activity: "the agent handled 1,200 conversations this month." That number tells you nothing about whether the business is better off. Track outcomes instead:
+
+- Time saved per case, against your Module 1 baseline
+- Cost avoided (headcount hours freed, error correction avoided)
+- Accuracy / error rate on the specific task, not overall sentiment
+- Cases the agent handled fully vs. cases that needed human escalation, and why
+
+If you can't yet tie the pilot to one of these, you're not measuring impact — you're measuring enthusiasm, which historically has not been a reliable leading indicator.
+
+## What "working" actually looks like at 6 months
+
+Well-scoped agents in clearly defined processes typically start returning positive, measurable results within about six months of a properly run pilot — not six weeks, and not never. Expect a real ramp: early weeks surface edge cases and integration gaps (Module 5), the middle stretch is tuning, and the payoff shows up once the process has stabilized. If a pilot has produced literally nothing measurable by the six-month mark, treat that as a signal to revisit problem selection, not a reason to double the investment.
+
+## The pilot scorecard
+
+A pilot lives or dies on whether one person can look at one document and know, in thirty seconds, whether it's working. Scattered notes in someone's inbox, a running Slack thread, a memory of "I think week 3 was better." None of that survives contact with the go/no-go call. Set the scorecard up on day one, before the pilot starts, using the metric and threshold you locked in earlier. If you can't fill in the Target column yet, you're not ready to start the clock.
+
+The format doesn't need to be clever. It needs to exist, get updated weekly by the accountable owner, and be readable by someone who wasn't in the room. Here's a copyable version, filled in for an illustrative support-ticket triage pilot:
+
+| Week | Metric | Baseline | Target | Actual | Owner Notes |
+|------|--------|----------|--------|--------|-------------|
+| 1 | Avg handling time (min) | 14.2 | 11.4 | 13.8 | Agent went live Monday. Escalation routing misclassified 9 urgent tickets as standard priority; fixed by Thursday. |
+| 2 | Avg handling time (min) | 14.2 | 11.4 | 14.6 | Regression. A knowledge base update on Tuesday introduced stale return-policy info; agent kept citing it until flagged Friday. |
+| 3 | Avg handling time (min) | 14.2 | 11.4 | 12.9 | Stale KB entries corrected. Two new hires on the human team pulled the manual comparison baseline up slightly, not an agent issue. |
+| 4 | Avg handling time (min) | 14.2 | 11.4 | 11.9 | Trending toward target. Two senior reps still routing complex refund tickets around the agent out of habit, not policy. Flagged for a workflow nudge. |
+| 5 | Avg handling time (min) | 14.2 | 11.4 | 11.1 | Target hit. 82% of eligible tickets now routed through the agent. Gains are coming from error-correction time, not raw response speed. |
+
+Reading this scorecard is its own skill. A plateau looks like Actual holding flat, week over week, regardless of what changes underneath it. That's a sign the pilot has hit a ceiling the agent can't get past on its own, and no amount of extra time will move it. A real trend looks like week 2 above: a dip with an identifiable cause, followed by recovery once that cause was addressed. The direction matters less than whether each move has an explanation attached to it.
+
+That's what the Owner Notes column is for. Without it, this table is just a chart of numbers going up and down, and charts invite guessing. With it, each row is a small diagnosis: what happened, why the number moved, and whether the cause is the agent, the data it's working from, or the humans around it. A scorecard nobody can explain is not a pilot. It's a demo that took five weeks instead of five minutes.
+
+## Checklist before you move to Module 5
+
+- [ ] Success metric and threshold are written down and dated before results come in
+- [ ] The pilot runs against real production inputs, not curated test cases
+- [ ] One named owner is accountable for the go/no-go call
+- [ ] A time box is set, with a real decision point at the end of it
+- [ ] You're tracking outcome metrics, not just usage/activity metrics

@@ -1,0 +1,91 @@
+import { Callout } from "@/components/Callout";
+
+This is the module the data says matters most, and the one most teams get to last — if at all. 94% of enterprises now report agent sprawl as a rising security and operational risk, and 82% already have agents or workflows running that their security team didn't know existed. If Module 1 through 5 went well, this is the module that decides whether that success stays contained or turns into a liability.
+
+<Callout type="data" title="The data">
+  74% of organizations plan to adopt agentic AI within two years. Only 21% report a mature governance model for it. That gap — adoption speed outrunning governance maturity — is the defining enterprise AI risk of the period. (Source: Zylos Research, AI Agent Governance and Compliance in 2026 — see [Case Library](/cases))
+</Callout>
+
+## Why sprawl happens even when nobody's being careless
+
+Agent sprawl isn't usually the result of recklessness. It's the predictable result of making it easy to build an agent and hard to get one approved through a central process. When five teams each have a real problem an agent could solve, and no fast, legitimate path exists to build one inside the org's governance, all five teams build their own — with their own permissions, their own data access, and zero visibility to each other or to security.
+
+<Callout type="mistake">
+  If your org doesn't offer an approved, fast path to build an agent, assume agents are already being built outside your visibility. The fix isn't a stricter ban — it's making the approved path faster than the workaround.
+</Callout>
+
+## The three things every deployed agent needs
+
+**1. A verifiable identity.** Which agent, which version, acting under whose authorization. This is the accountability equivalent of a login for a human employee — without it, "the agent did something wrong" has no path back to a responsible party.
+
+**2. A permission ceiling, set deliberately.** Not "whatever the underlying service credentials happen to allow" — an explicit, reviewed list of what this agent is allowed to touch and do. Set this before deployment, not discovered after an incident.
+
+**3. A complete audit trail.** A chronological, tamper-resistant record of every input, tool call, permission used, policy decision (permit or deny), and the reasoning step the agent generated before acting. This is what makes an agent's behavior reviewable after the fact — and it's increasingly not optional. Singapore's IMDA Model AI Governance Framework for Agentic AI, effective January 2026, requires exactly this: every agent carrying a verifiable digital identity and a full audit trail of who acted under whose authorization. The EU AI Act's full enforcement activation in August 2026 adds regulatory weight behind the same expectation.
+
+<Callout type="framework" title="Minimum audit log fields">
+  Agent identifier and version · delegated permissions for that execution · specific tool or API invoked · governance policy decision (permit/deny) · the reasoning step generated before acting.
+</Callout>
+
+## What an audit log entry actually looks like
+
+Here's one entry from that audit trail, for a fictional refund-processing agent clearing a routine claim.
+
+```json
+{
+  "timestamp": "2026-07-22T14:03:11Z",
+  "agent_id": "refund-agent",
+  "agent_version": "2.4.1",
+  "execution_id": "exec_8f2a1c90",
+  "tool_invoked": "payments.refund.create",
+  "delegated_permissions": [
+    "refunds:create:under_50_usd",
+    "orders:read"
+  ],
+  "action": {
+    "order_id": "ORD-88213",
+    "refund_amount_usd": 34.00,
+    "reason_code": "item_not_as_described"
+  },
+  "policy_decision": {
+    "result": "permit",
+    "rule_id": "refund-agent-v2.rule-1",
+    "rule_text": "Autonomous approval permitted for refunds under $50 on orders confirmed delivered"
+  },
+  "reasoning": "Order ORD-88213 shows delivered status confirmed by carrier scan on 2026-07-20. Customer reported item not as described with photo evidence attached. Refund amount $34.00 is under the $50 autonomous threshold and order has no prior refund history. Approving without escalation.",
+  "outcome": "refund_issued"
+}
+```
+
+The reasoning field is the one that matters most in a dispute. The other fields tell you what happened. Only the reasoning string tells you why the agent thought it was allowed to do it, which is what a human actually needs when a customer, an auditor, or a regulator asks "why did this happen."
+
+## What a governance policy actually looks like
+
+Most teams describe "having a policy" in the abstract, without ever writing one down in a form an agent, or a human approver, could actually enforce. Here's what an enforceable version looks like.
+
+**Agent Permission Policy: refund-agent-v2**
+
+- May autonomously approve refunds under $50 for orders confirmed delivered.
+- Refunds between $50 and $500 require the agent's generated Owner Notes field to be reviewed by a human within 24 hours before the refund executes.
+- Refunds over $500, or any refund the fraud model flags as fraud-risk, require human approval before the agent can act at all.
+- Agent cannot modify a customer's stored payment method under any circumstance.
+- Agent cannot issue more than one refund against the same order.
+- Every denied action must log the specific policy rule that triggered the denial.
+
+The dollar thresholds and named exceptions are what make this enforceable instead of aspirational. "Use good judgment on refunds" can't be checked by a policy engine, can't be audited after the fact, and gives a reviewer nothing to point to when something goes wrong. "Under $50, confirmed delivered" can be checked automatically, logged against a rule ID, and defended in front of an auditor.
+
+## Governance scales ahead of adoption, or it doesn't scale at all
+
+The organizations that avoid the sprawl trap treat governance as infrastructure to build *before* the third or fourth agent gets deployed, not as cleanup after the fact. Practically, that means:
+
+- A lightweight, fast internal approval process for new agents — slow enough to check permissions and data access, fast enough that teams don't route around it.
+- A central registry of what agents exist, what they're allowed to do, and who owns them.
+- Governance policy integrated into existing security/compliance workflows, not a separate parallel process nobody remembers to check.
+- Regular re-review as an agent's scope expands — the permission ceiling that was right at launch may not be right six months later.
+
+## Checklist before you move to Module 7
+
+- [ ] Every agent in production has a verifiable identity and version
+- [ ] Permission ceilings are explicit and reviewed, not inherited by default
+- [ ] An audit trail captures actions, permissions used, and reasoning steps
+- [ ] There's a known, fast internal path for a team to get a new agent approved
+- [ ] You know how many agents actually exist across your org right now — and if you don't, that's the first governance gap to close

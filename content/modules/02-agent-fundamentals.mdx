@@ -1,0 +1,80 @@
+import { Callout } from "@/components/Callout";
+
+You don't need to know how to build an agent to make good decisions about deploying one. You do need enough real vocabulary to tell the difference between a vendor's substance and their marketing copy. This module gives you that — no code, just the concepts that actually determine whether something will work.
+
+## What an agent actually is
+
+Strip away the hype and an agent is three things combined:
+
+1. **A model** — the reasoning engine that reads context and decides what to do.
+2. **Tools** — functions it's allowed to call: querying a database, sending an email, updating a CRM record, searching a knowledge base.
+3. **A loop** — a process that lets the model take an action, observe the result, and decide the next action, instead of producing one fixed response and stopping.
+
+That loop is the entire difference between "a chatbot that answers questions" and "an agent that does work." A chatbot generates text. An agent generates text *and takes actions*, then reacts to what happens next.
+
+<Callout type="framework" title="The one-sentence version">
+  Agent = model + tools it can call + a loop that lets it decide the next step. If a vendor's product can't take real actions in your systems, it isn't an agent — it's a well-dressed chatbot.
+</Callout>
+
+## Tool use: the part that actually matters
+
+"Tool use" is the mechanism by which an agent reaches outside the conversation and does something real — looks up an order, files a ticket, pulls a report, sends a message. This is where almost all of the business value lives, and also where almost all of the risk lives.
+
+When you evaluate a vendor or a build proposal, the sharpest question you can ask is: **"What exactly can this agent do, and to what systems does it have write access?"** Not "what can it talk about" — what can it *do*. A wrong answer generated in a chat window is embarrassing. A wrong action taken against a real system — a refund issued, a record deleted, an email sent to the wrong customer — is a business incident.
+
+## Memory: what persists, and where
+
+"Memory" means state that carries across steps or sessions instead of being forgotten the moment a conversation ends. This ranges from simple (remembering the last three messages in one conversation) to complex (a persistent profile of a customer's history across months of interactions).
+
+Ask vendors three concrete questions:
+- What exactly persists — full transcripts, summaries, structured facts?
+- Where is it stored, and for how long?
+- Can it be deleted, audited, or exported on request?
+
+If the answers are vague, that's a governance problem waiting to happen, not just a technical detail (more in Module 6).
+
+## Orchestration: more capability, more failure surface
+
+Some tasks are handled by a single agent. Others are broken into steps handled by multiple specialized agents that hand work off to each other — one drafts, one reviews, one executes. This is "orchestration," and it's the axis where capability and risk both scale together.
+
+The tempting mistake is to assume more orchestration is strictly better, because it sounds more sophisticated. In practice, every handoff between agents or steps is a place where context can be lost, instructions can be misinterpreted, or an error in step 2 can compound by step 5. Simpler pipelines are easier to debug, easier to govern, and often outperform elaborate multi-agent setups on real business tasks — especially early on.
+
+<Callout type="data" title="The practical takeaway">
+  When comparing two proposals of similar capability, prefer the one with fewer moving parts. You can add orchestration later once you understand where the single-agent version actually breaks.
+</Callout>
+
+## Retrieval: why your data quality is the real bottleneck
+
+Many business agents use retrieval-augmented generation (RAG) — before answering, the agent looks up relevant information from your own knowledge base rather than relying solely on what the model learned during training. This is how you get an agent that knows your return policy instead of a generic one.
+
+The catch: the agent's answers are only as good as what it retrieves. Inconsistent, outdated, or poorly structured internal documentation doesn't just produce mediocre answers — it produces *confidently wrong* answers delivered at scale, because the agent doesn't know the difference between your current return policy and the one your company retired two years ago. Data readiness is a prerequisite, not a nice-to-have (this comes back hard in Module 5).
+
+## Worked example: reading a vendor pitch
+
+Here's a fictional pitch, the kind that shows up in half your vendor decks:
+
+> "Our platform deploys autonomous AI agents that seamlessly integrate with your existing enterprise stack. Powered by advanced multi-agent orchestration, it delivers intelligent, context-aware automation across your entire organization — no rip-and-replace required."
+
+Every phrase in that pitch is designed to sound impressive without committing to anything you could verify. Run it through the vocabulary from this module and you can see exactly where the gaps are.
+
+- **"Autonomous AI agents"** — autonomous doing what, exactly? What are the tools? A model that drafts an email for a human to send is a very different product than one that sends it. Ask: *what actions can it take without a person approving first, and what's the full list of systems it can write to?*
+- **"Seamlessly integrates with your existing enterprise stack"** — integration is retrieval and tool use wearing a suit. Ask: *which specific systems, through which specific APIs, and what happens when the data in those systems is inconsistent or stale?* If they can't name your CRM by name, they haven't built the integration — they've built a slide.
+- **"Advanced multi-agent orchestration"** — orchestration is a cost, not a feature. More agents handing off work means more places for something to break. Ask: *why does this task need multiple agents instead of one, and what happens when a handoff fails?* If they can't describe a failure mode, they haven't run it against real traffic.
+- **"Intelligent, context-aware automation"** — context-aware means memory. Ask: *what persists between interactions, where is it stored, and can we delete it?* This is also the moment to ask what "context" actually means here, because the word is doing a lot of unpaid work.
+
+A weak answer restates the pitch in different words: "it's fully autonomous and handles everything end to end." A weak answer also gets vague about failure — "the system is highly reliable" without a number attached. A strong answer sounds almost boring by comparison. It names the three systems the agent writes to, states plainly which actions require a human sign-off today, and can describe a specific case where the agent got something wrong and what happened next. If a vendor can tell you exactly how their agent fails, they've actually built one. If they can only tell you how it succeeds, you're still reading marketing copy.
+
+## A vocabulary you can use in a vendor meeting
+
+- **Autonomy level** — how much the agent does without a human checking first. This should be a decision you make, not a default the vendor ships with.
+- **Guardrails** — constraints on what the agent is allowed to say or do, enforced independently of the model's own judgment.
+- **Human-in-the-loop** — a checkpoint requiring a person to approve an action before it takes effect, common for anything high-stakes or hard to reverse.
+
+Full definitions for all of these live in the [Glossary](/glossary) — worth bookmarking before your next vendor call.
+
+## Checklist before you move to Module 3
+
+- [ ] You can explain the model + tools + loop framing to a colleague in one breath
+- [ ] You know what "tool use" your candidate process would actually require
+- [ ] You've asked (or would ask) what data the agent needs to retrieve from, and how current it is
+- [ ] You have an opinion on what autonomy level is appropriate to start with

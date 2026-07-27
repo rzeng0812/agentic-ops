@@ -1,0 +1,78 @@
+import { Callout } from "@/components/Callout";
+
+A pilot that "went well" and a pilot that's ready to scale are not the same thing. This module is about the difference — and about why the scaling decision is usually a resourcing and capability question, dressed up as a technical one.
+
+## Tie it to a number, or don't scale it yet
+
+By now you have a baseline (Module 1) and outcome metrics from the pilot (Module 4). The scaling decision comes down to one question: **can you point to a specific line — cost, revenue, time, error rate — that moved, and attribute the move to this agent specifically?**
+
+If the answer is "people seem to like it" or "usage is up," that's not yet a scaling case. Usage tells you people are trying it. It doesn't tell you it's worth the investment to expand it. Go back to the metric you wrote down in Module 1 and check it honestly against where you are now.
+
+<Callout type="framework" title="The scaling gate">
+  Don't scale a pilot until you can complete this sentence with a real number: "This agent moved [metric] from [baseline] to [result], over [timeframe], and here's how we know it was the agent and not something else."
+</Callout>
+
+## Worked example: filling in the scaling gate
+
+Here's what filling in that sentence actually looks like. This is a composite/fictional example (a returns-processing pilot, not a real company), but the shape of the evidence is what matters.
+
+Filled in: *"This agent moved average returns-processing time from 4.1 days to 1.6 days, over a 10-week pilot, and here's how we know it was the agent and not something else."*
+
+The first half of that sentence is the easy part. Almost any team can produce a before/after number. The second half, proving it was the agent, is where most scaling cases fall apart, because it's usually skipped entirely.
+
+To actually isolate the agent's effect, the returns team did two things. First, they ran a holdout: 20% of incoming returns tickets stayed on the fully manual process throughout the pilot, handled by the same reps, so there was a live control group processed in parallel rather than a different time period. The manual holdout's processing time barely moved (4.1 to 3.9 days), while the agent-assisted group dropped to 1.6 days. Second, they checked the obvious confound, seasonal volume, since returns spike after holiday shopping. The pilot ran in a flat-volume window specifically to avoid that noise, and ticket volume per rep was roughly constant across the 10 weeks.
+
+<Callout type="data" title="What actually counts as proof">
+  A before/after number with no control group tells you something changed. A holdout comparison, run at the same time under the same conditions, tells you what changed it. If you can't point to a control group or a ruled-out confound, you have a correlation, not a scaling case.
+</Callout>
+
+## The most common scaling mistake
+
+Scaling the tool without scaling the team's capability to use it. It's tempting to assume that once a tool works for one team, rolling it out to five more teams is just a deployment exercise — flip it on, send an email, done. It isn't. Each new team needs the same thing the first team got: training on the new workflow, a clear understanding of what the agent now owns versus what a human reviews, and time to build trust in it through supervised use before autonomy increases.
+
+Deploying a tool doesn't drive adoption. Building the capability to use it well does.
+
+<Callout type="mistake">
+  If your scaling plan is "we already built it, now we just turn it on for more teams," you've skipped the part that actually determines whether it works. The build was the easy 20%.
+</Callout>
+
+## Depth before breadth
+
+When a pilot succeeds, the appealing next move is often "let's roll this out to every team that has a similar process." A better next move, usually, is expanding to an *adjacent* process with the *same* owner and team before expanding to a brand new team. You already have trust, workflow familiarity, and governance set up in that first team — extending their scope is far cheaper than standing up a second team from zero.
+
+Save the wide rollout for after you've proven the pattern repeats, not as the first bet after a single successful pilot.
+
+## Depth before breadth, worked
+
+Take that same returns-processing pilot. Once it hit its number, the team had two options for what to do next.
+
+| | Path A: adjacent process, same team | Path B: same process, new team |
+|---|---|---|
+| Setup cost | Low: same reps, same manager, same systems access | High: new integrations, new logins, new approval chain |
+| Trust already established? | Yes: reps already worked alongside the agent for 10 weeks | No: starts from zero, same skepticism the first team had on day one |
+| New governance review needed? | Light: extension of existing scope | Full: new team, new systems touched, new audit trail |
+| Realistic timeline | 3-4 weeks to steady state | 10-12 weeks, roughly a second pilot |
+
+Path A, expanding returns processing into adjacent refund-exception handling with the same reps and manager, cost a fraction of Path B and moved faster, because it spent nothing on rebuilding trust or governance that already existed. Path B, standing up the identical process on a new team in another region, was closer to starting over. That gap is the whole argument for depth before breadth: expand where the trust and governance work is already paid for, and treat a new team as its own pilot, not a rollout line item.
+
+## Re-run governance at every scale-up, not just at launch
+
+The permission ceiling and audit setup that were right for a 50-conversation-a-week pilot may not be right once volume is 10x higher and the agent has been extended into two adjacent processes. Every time scope expands — new systems it touches, new actions it can take, new teams using it — revisit the governance checklist from Module 6. Sprawl doesn't usually happen at launch. It happens quietly, one "just add this one thing" expansion at a time.
+
+## When to kill a pilot instead of scaling it
+
+Not every pilot should scale, and that's a fine outcome — a pilot that clearly answers "no, this isn't the right investment" is more valuable than one that lingers indefinitely in "promising" without ever producing a number. Kill or pause a pilot when:
+
+- It plateaued below your threshold and more tuning time hasn't moved it
+- The data readiness problems from Module 5 turned out to be bigger than the team can realistically fix
+- The process it targets turned out to be lower-volume or more judgment-heavy than Module 1's fit test suggested
+
+A killed pilot with a clear reason is a resourcing decision made well. A pilot that never leaves "promising" is a resourcing decision avoided.
+
+## Checklist: are you actually ready to scale?
+
+- [ ] You can name the specific metric that moved, and the number it moved by
+- [ ] You have a training/capability plan for each new team, not just a rollout email
+- [ ] The next expansion is an adjacent process with the same team, not a new team from scratch
+- [ ] Governance (identity, permissions, audit trail) has been re-reviewed for the new scope
+- [ ] You've honestly asked whether this should scale, kill, or stay exactly where it is

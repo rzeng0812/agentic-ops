@@ -1,0 +1,93 @@
+import { Callout } from "@/components/Callout";
+
+Most agent projects fail before a single prompt gets written. They fail at problem selection — someone picks a process because it sounds impressive in a board deck, not because it's actually a good fit for an agent. This module is about learning the pattern before you commit a budget to it.
+
+## The fit test
+
+AI agents are good at processes that are **repeatable, rules-based but tedious, and high enough volume that automating them compounds**. They're bad at processes that are low-volume, one-off, or require judgment calls with no historical precedent to learn from.
+
+Run every candidate process through four questions:
+
+1. **How often does this happen?** If it's a handful of times a month, the ROI math rarely works, no matter how annoying the process is.
+2. **Are the rules knowable?** Not necessarily written down, but knowable — could an experienced employee explain the decision logic in ten minutes? If the honest answer is "it depends on the day," an agent will struggle exactly where your best people struggle.
+3. **Is the current cost visible?** You need a number — hours per week, dollars per ticket, days per cycle — or you'll never be able to prove the agent helped.
+4. **Who owns this today?** If no single person or team owns the process, you won't have anyone to validate whether the agent replaced real work or just generated new noise for someone to review.
+
+<Callout type="framework" title="The fit test, compressed">
+  High volume + knowable rules + visible cost + a clear owner = good candidate.
+  Low volume, judgment-heavy, invisible cost, or no owner = wait, or pick a different process.
+</Callout>
+
+## Worked example: three candidates, one winner
+
+Here's a composite example. It's not a real company, just a stand-in for the kind of prioritization meeting that happens at most mid-size operators once they decide to try agents. Picture a 200-person B2B logistics company weighing three candidate processes for its first pilot.
+
+The three candidates on the shortlist:
+
+1. **Late freight-quote follow-up.** Sales reps manually chase carriers for quote confirmations that haven't come back within 24 hours, then escalate if there's still no response after 48.
+2. **Damage-claims triage.** Incoming cargo damage claims get routed to a regional adjuster based on cargo type, shipment value, and route.
+3. **New carrier onboarding review.** Applications from prospective carriers get evaluated on safety record, references, and informal reputation before they're approved to haul freight.
+
+Run each through the four fit-test questions:
+
+| Candidate | Volume | Knowable rules | Visible cost | Clear owner | Verdict |
+|---|---|---|---|---|---|
+| Late quote follow-up | High — about 150/week across the team | Yes — "no response in 24 hours, send templated follow-up; still nothing at 48, escalate" | Yes — sales ops already tracks that reps spend ~6 hours/week on this | Yes — sales ops manager owns the SLA | **Winner.** Clean yes on all four. |
+| Damage-claims triage | Medium — about 40/week | Partial — routing logic is mostly consistent, but roughly 15% of claims are ambiguous cargo categories where adjusters routinely disagree | Fuzzy — nobody tracks time lost to mis-routes specifically, though it's a known complaint | Yes — claims ops manager | **Closer call.** Decent volume, an owner, but the cost isn't measured and the exact cases where an agent would struggle are the ones causing the most friction today. |
+| Carrier onboarding review | Low — about 8/month | No — each application is judged on relationship, reputation, and informal reference checks that vary by reviewer | No — nobody logs hours spent on this | Unclear — split informally between procurement and legal | **Loser.** Fails nearly every question. |
+
+The quote follow-up wins because it's high-frequency, the decision logic is something a sales ops manager can describe in two sentences, the cost is already a tracked number, and there's one person who'll know immediately if the agent is helping or just adding noise. The onboarding review loses for the opposite reasons: it's rare enough that the ROI math never closes, the judgment calls are exactly the kind with no consistent rule behind them, and there's no single owner to say whether it worked. The claims triage sits in between — it clears the volume and ownership bars but the fuzzy cost and the messy 15% mean the right move is a narrower pilot scoped to the clean cases, not a blanket yes. That's what "the fit test, compressed" above is really testing for: not a pass/fail score, but where the process breaks.
+
+## Scope to one process, not a platform
+
+The single most common early mistake is scoping too big. "Automate customer support" is not a project — it's a department. "Automate password-reset and order-status tickets, which are 40% of ticket volume today" is a project.
+
+Start with one measurable workflow. Not a platform, not a suite, not "the customer service agent." One process, one owner, one number you're trying to move. You can build the platform later, after you've proven the pattern works on something small enough to actually be wrong about safely.
+
+<Callout type="mistake">
+  "We need to build the full platform before anyone can really use it" is usually a sign the value proposition isn't clear yet — not that the project needs to be bigger. If nobody can get value from a narrow slice, a bigger slice won't fix that.
+</Callout>
+
+## The status quo is the real competitor
+
+Before you scope anything, go find out what people are doing today to work around this problem. Not what the org chart says the process is — what people actually do. Spreadsheets stitched together, a Slack channel someone monitors manually, a intern doing lookups by hand.
+
+If the honest answer is "nothing, nobody does this today," that's a signal worth taking seriously. It usually means the problem isn't painful enough for anyone to have already hacked together a workaround — which means it may not be painful enough to justify an agent either.
+
+## When to walk away entirely
+
+Sometimes the right call after running the fit test isn't "wait" and it isn't "pick a different process." It's "don't use an agent for this at all, use something simpler."
+
+This gets skipped a lot because once a team has decided it's doing an agent pilot, every problem starts looking like an agent problem. But a lot of process pain has a cheaper fix sitting one layer down:
+
+- **A better default.** If half your support tickets are people asking to change a setting that should never have shipped with that default in the first place, fix the default. No agent needed, no workflow needed.
+- **Plain rules-based automation, no LLM involved.** If the decision logic is genuinely a fixed set of if-this-then-that rules, a basic automation script or workflow tool will run it faster, cheaper, and more predictably than an agent, and it won't hallucinate an edge case.
+- **A one-page form that collects the information up front.** A lot of "triage" work exists only because the incoming request is missing the details someone needs to route it. Asking for those details at intake removes the triage step entirely, rather than paying to have an agent guess at them after the fact.
+- **A policy change that removes the need for the workflow.** Sometimes the process itself is the waste. If a review step exists because of a rule nobody remembers the reason for, changing the rule is faster than automating the review.
+
+<Callout type="mistake">
+  Reaching for an agent as the default whenever any automation would do is itself a mistake. Agents cost more to build, more to run, and more to govern than a default change, a rules script, or a form. Save the agent budget for the processes where the judgment genuinely can't be reduced to a fixed rule.
+</Callout>
+
+## Write the metric before you write the prompt
+
+The order matters. Decide what "success" looks like — a specific number, with a specific threshold — before any building starts. Not after you see what the pilot produces. If you wait until after, you'll unconsciously grade on a curve to justify the work already spent.
+
+Good success metrics look like:
+- "Reduce average handling time on category-X tickets by 20%, measured over 4 weeks against the trailing 4-week baseline."
+- "Resolve 60% of category-X tickets without human review, with an error rate under 2%."
+
+Bad success metrics look like:
+- "The agent responds intelligently to customer questions."
+- "Users like using it."
+
+The first set is falsifiable. The second set will always feel true, whether or not the project actually worked.
+
+## Checklist before you move to Module 2
+
+- [ ] You can name the single process, not a category of processes
+- [ ] You have a current baseline number for cost, time, or volume
+- [ ] You know who owns this process today and they're bought in
+- [ ] You've written the success metric and threshold down
+- [ ] You've checked: is this high-volume, rules-based, and tedious? If not, reconsider
+- [ ] You've considered and ruled out simpler alternatives — a better default, a rules-based automation, a form, a policy change — before committing to an agent

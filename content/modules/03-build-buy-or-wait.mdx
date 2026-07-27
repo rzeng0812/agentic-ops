@@ -1,0 +1,74 @@
+import { Callout } from "@/components/Callout";
+
+Most curricula jump straight from "here's what an agent is" to "here's how to pilot one." That skips the decision that actually determines everything downstream: whether you build this yourself, buy a vendor's version, or hold off entirely. Get this decision wrong and the cost, the timeline, and who ends up owning the mess are all wrong with it. This module is about making that call deliberately instead of drifting into it.
+
+## What this actually costs
+
+Vendors sell against a subscription number. That number is rarely what the project actually costs. There are four real cost components, and only one of them is on the pricing page.
+
+1. **Platform or subscription fees.** The advertised price. Often a flat monthly rate or a tiered plan based on seats or volume bands.
+2. **Usage-based costs.** Many agent products charge per resolution, per API call, or per token consumed under the hood. This cost scales with volume, not with the flat number you budgeted, which means it grows exactly when the project is succeeding.
+3. **Integration engineering time.** Connecting the agent to your actual systems, your CRM, your ticketing tool, your internal databases. This is the work covered in Module 5, and it's almost never included in a vendor's quote, whether you buy or build.
+4. **Ongoing review and correction labor.** Someone has to check the agent's work, especially in the first months. That person's time is a real, recurring cost, and it doesn't show up on any invoice.
+
+Add these up and total cost of ownership typically lands at two to four times the sticker price once integration and review labor are counted honestly. Businesses that skip this math tend to discover it around month three, when the finance team asks why the "$2,000 a month tool" is costing $7,000.
+
+<Callout type="data" title="The multiplier is real">
+  A vendor quote of $2,500/month for an agent product commonly becomes $6,000–$10,000/month in practice once you add usage overages, one-time integration work amortized over a year, and a part-time reviewer's fully loaded cost. Budget for the range, not the headline number.
+</Callout>
+
+## The build vs. buy framework
+
+Once you know the real cost shape, the build-vs-buy-vs-wait decision gets a lot more concrete.
+
+| | **Build** | **Buy** | **Wait** |
+|---|---|---|---|
+| Best when | Process touches proprietary data or workflow no vendor has seen | Process is common across companies, edge cases already solved | Fit test from Module 1 was marginal |
+| Cost profile | High upfront, lower marginal cost over time | Lower upfront, ongoing usage cost that scales with volume | Near zero, opportunity cost only |
+| Time to value | Slowest, months typically | Fastest, weeks typically | N/A by definition |
+| Risk | Engineering risk, ownership risk if the builder leaves | Vendor lock-in, less control over changes to behavior | Risk of a competitor moving first, but usually smaller than the risk of a bad deployment |
+| Who should own it | An internal team with the process expertise and engineering support | The business owner of the process, with a vendor relationship manager | The process owner, revisiting the fit test on a schedule |
+
+Buy when the process is common enough that a vendor has already absorbed the pain of solving its edge cases. Generic customer support triage, standard scheduling, routine document classification: thousands of companies have this exact problem, and a mature vendor has already hardened their product against the weird cases you haven't hit yet.
+
+Build when the process touches proprietary data, a workflow, or a competitive advantage that no vendor has ever seen, because no vendor could have built for it. If the value of the agent comes specifically from something unique to your business, a generic product will underperform no matter how well it's marketed.
+
+Wait when the fit test from Module 1 came back marginal. Low volume, unclear rules, no visible baseline cost, no obvious owner. The cost of waiting is almost always lower than the cost of a bad deployment, because a bad deployment doesn't just waste the budget, it also burns the trust you'll need to try again.
+
+<Callout type="mistake">
+  The most common mistake isn't picking the wrong option. It's not picking at all, and defaulting into "buy" because a vendor showed up with a slide deck first. Build vs. buy vs. wait should be a decision someone makes on purpose, with the framework above, not a decision that happens by default because sales moved faster than strategy.
+</Callout>
+
+## Worked example: evaluating three vendor quotes
+
+The following scenario is fictional, built to illustrate the math, not a real company or product.
+
+A composite business, "Northgate Retail," is evaluating agents to triage inbound support tickets: read the ticket, tag it, route it to the right queue, and auto-resolve the simplest cases (password resets, order-status lookups). Northgate handles roughly 8,000 tickets a month, and about 3,000 of those are auto-resolvable in principle.
+
+Three vendors respond with three different pricing models:
+
+| Vendor | Pricing model | Stated price |
+|---|---|---|
+| Vendor A | Flat monthly fee | $4,000/month, unlimited volume |
+| Vendor B | Per-resolution cost | $1.75 per ticket successfully auto-resolved |
+| Vendor C | Per-seat cost | $150/seat/month, 6 seats required for this workflow |
+
+These numbers aren't comparable as written, so normalize them to a cost-per-resolved-ticket at Northgate's actual volume of 3,000 resolutions a month:
+
+| Vendor | Monthly cost | Cost per resolved ticket |
+|---|---|---|
+| Vendor A | $4,000 flat | $4,000 / 3,000 = **$1.33** |
+| Vendor B | $1.75 × 3,000 | $5,250 total = **$1.75** |
+| Vendor C | $150 × 6 seats | $900 total = **$0.30** |
+
+Vendor C looks cheapest by a wide margin, but the per-seat number only holds if six seats actually cover the workflow at 3,000 resolutions a month. If ticket volume grows and Northgate needs a seventh seat, the marginal cost jumps by $150 in a step, not smoothly. Vendor A looks worst on paper but is the only one whose cost doesn't move if volume climbs to 5,000 resolutions next quarter. Vendor B scales predictably but punishes growth directly.
+
+None of these numbers include integration time or review labor from the section above. Once you add those, the actual gap between vendors often narrows or reverses. The point of this exercise isn't to declare a winner, it's to show that you cannot compare vendor quotes honestly until you've converted every pricing model to the same unit, at your actual volume, and then added the costs the quote didn't mention.
+
+## Checklist before you move to Module 4
+
+- [ ] You've estimated total cost of ownership, not just the vendor's or the build estimate's sticker price
+- [ ] Build vs. buy vs. wait was a deliberate decision, made on purpose, not defaulted into
+- [ ] You have a per-unit cost estimate (cost per resolution, per ticket, per transaction) at your actual volume
+- [ ] A specific person is named as the owner of this decision
+- [ ] "Wait" was seriously considered as an option, not just build vs. buy

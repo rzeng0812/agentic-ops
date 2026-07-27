@@ -1,65 +1,98 @@
-import Image from "next/image";
+import Link from "next/link";
+import { orderedModules } from "@/lib/modules";
+import { ProgressSummary } from "@/components/ProgressSummary";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
+        A working curriculum
+      </p>
+      <h1 className="mt-2 text-4xl font-semibold tracking-tight">
+        Learning how AI agents actually get deployed in business operations
+      </h1>
+      <p className="mt-4 max-w-2xl text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">
+        Most AI-for-business content is organized around technology — what&apos;s an
+        LLM, what&apos;s RAG, what&apos;s an agent. This is organized around the
+        deployment lifecycle instead, because the evidence says that&apos;s where
+        adoption actually succeeds or fails: choosing the right problem, proving
+        it in a pilot, integrating it for real, governing it, and scaling it.
+      </p>
+
+      <div className="mt-8">
+        <ProgressSummary />
+      </div>
+
+      <section className="mt-14">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-neutral-400">
+          The lifecycle
+        </h2>
+        <ol className="mt-4 flex flex-col divide-y divide-neutral-200 rounded-xl border border-neutral-200 dark:divide-neutral-800 dark:border-neutral-800">
+          {orderedModules.map((m) => (
+            <li key={m.slug}>
+              <Link
+                href={`/modules/${m.slug}`}
+                className="flex items-start gap-4 px-5 py-4 transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-900"
+              >
+                <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-neutral-900 text-xs font-semibold text-white dark:bg-neutral-100 dark:text-neutral-900">
+                  {m.order}
+                </span>
+                <span className="flex-1">
+                  <span className="flex items-baseline justify-between gap-3">
+                    <span className="font-medium text-neutral-900 dark:text-neutral-100">
+                      {m.title}
+                    </span>
+                    <span className="shrink-0 text-xs text-neutral-400">{m.readTime}</span>
+                  </span>
+                  <span className="mt-1 block text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
+                    {m.summary}
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section className="mt-14 grid gap-4 sm:grid-cols-3">
+        <Link
+          href="/glossary"
+          className="rounded-xl border border-neutral-200 p-5 transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900"
+        >
+          <p className="font-medium">Glossary</p>
+          <p className="mt-1 text-sm text-neutral-500">
+            The real vocabulary — agent, tool use, RAG, guardrails — defined in plain terms.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+        </Link>
+        <Link
+          href="/cases"
+          className="rounded-xl border border-neutral-200 p-5 transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900"
+        >
+          <p className="font-medium">Case Library</p>
+          <p className="mt-1 text-sm text-neutral-500">
+            Sourced, cited examples of what worked, what didn&apos;t, and the numbers behind both.
+          </p>
+        </Link>
+        <Link
+          href="/cheat-sheets"
+          className="rounded-xl border border-neutral-200 p-5 transition-colors hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-900"
+        >
+          <p className="font-medium">Cheat Sheets</p>
+          <p className="mt-1 text-sm text-neutral-500">
+            One page per module — the framework, stripped down, for before a real meeting.
+          </p>
+        </Link>
+      </section>
+
+      <section className="mt-14 rounded-xl border border-neutral-200 p-6 text-sm leading-relaxed text-neutral-600 dark:border-neutral-800 dark:text-neutral-400">
+        <p className="font-medium text-neutral-900 dark:text-neutral-100">How to use this</p>
+        <p className="mt-2">
+          Go through the six modules in order the first time — each one assumes the last.
+          After that, use the Glossary and Case Library as reference, and the Cheat Sheets
+          when you need the framework fast, before a vendor call or an internal pitch.
+          Progress is tracked in your browser only; nothing is sent anywhere.
+        </p>
+      </section>
     </div>
   );
 }

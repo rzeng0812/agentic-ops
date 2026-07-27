@@ -1,0 +1,81 @@
+import { Callout } from "@/components/Callout";
+
+This is the module most curricula skip, because it's not glamorous. It's also the module where most pilots that "worked" quietly die on the way to production. Integration is where you find out whether the promising pilot from Module 4 can survive contact with your actual systems, actual data, and actual org chart.
+
+## Data readiness is the silent killer
+
+An agent that works beautifully in testing and then fails in production almost never fails because the model got worse. It fails because production data is messier than test data: fields that are sometimes empty, records that are duplicated under two different customer IDs, a knowledge base article that's two policy versions out of date.
+
+RAG-based agents in particular are bottlenecked entirely by the quality of what they retrieve. Inconsistent, outdated, or poorly structured knowledge bases don't produce obviously-broken output — they produce **confidently wrong** output, delivered at scale, which is worse than an obvious failure because nobody catches it until a customer does.
+
+<Callout type="mistake">
+  Data pipeline failures are one of the most common causes of agents behaving incorrectly in production. If nobody has audited the source data's freshness and consistency before launch, assume it isn't ready.
+</Callout>
+
+Before you scale past the pilot, map every system the agent needs to read from and write to, and for each one, ask: how current is this data, who owns keeping it accurate, and what happens if it's wrong?
+
+## Map the systems before you scope the timeline
+
+It's easy to estimate a project timeline based on how long it takes to get the agent responding well in isolation. That's not the real project. The real project is: how many systems does this agent need to touch, and how painful is each integration?
+
+For each system the agent needs to read from or act on:
+- Does an API exist, or does this require custom integration work?
+- What are the permission and authentication requirements?
+- Is this system's data structured enough to be reliably queried, or does it need cleanup first?
+
+Timelines that don't account for this list are timelines that will slip, and it's better to know that before you commit a launch date to stakeholders.
+
+## Worked example: mapping the systems for a returns-processing agent
+
+The following is a fictional, composite scenario, not a real company, but it's built from the pattern of problems teams actually run into. A mid-size e-commerce retailer wants an agent that handles return requests end to end: customer submits a return, the agent checks eligibility, updates inventory, issues a refund, and closes the ticket.
+
+Before anyone commits to a timeline, the team maps every system the agent has to touch:
+
+| System | Read or Write? | API available? | Data quality risk | Integration effort |
+|---|---|---|---|---|
+| Order management system | Read | Yes, documented REST API | Low — order records are structured and current | Low |
+| Inventory system | Read/Write | Yes, but rate-limited | Medium — stock counts lag warehouse reality by hours | Medium |
+| Refund/payment processor | Write | Yes, well-documented | Low — transactional data is clean | Low |
+| Customer email | Read/Write | Yes, standard email API | Medium — thread history is messy, hard to parse intent | Medium |
+| Return-policy knowledge base | Read | No — lives in a shared drive of PDFs | High — several versions in circulation, some outdated by two policy cycles | High |
+
+The order system and payment processor are the easy part: clean APIs, current data, low risk. The knowledge base is the opposite of that, and it's exactly the "silent killer" from earlier in this module: no API, no clear ownership, and no way to know which PDF is authoritative without someone manually auditing it.
+
+The team's first timeline estimate was six weeks, based on how fast the agent worked in a demo against a handful of cherry-picked orders. That estimate assumed integration was mostly done. It didn't account for someone having to consolidate the policy documents into a single source of truth before the agent could safely quote a return window or a restocking fee, which alone added several weeks the original plan never budgeted for.
+
+## Decide autonomy per action, not per agent
+
+Don't make a single blanket decision about "how autonomous the agent is." Different actions carry different risk, and should get different autonomy levels:
+
+- **Low-risk, reversible actions** (drafting a response, looking up information) — safe to let the agent act autonomously from day one.
+- **Medium-risk actions** (updating a record, sending a routine email) — reasonable to automate after the pilot period, once error rates are known.
+- **High-risk or hard-to-reverse actions** (issuing a refund, deleting a record, anything customer-facing and irreversible) — keep a human-in-the-loop approval step, at least until you have a long track record of accuracy.
+
+<Callout type="framework" title="Framework: autonomy by action, not by agent">
+  List every distinct action the agent can take. For each one, assign an autonomy level (autonomous / approval-required / suggest-only) based on how reversible and how consequential it is — not based on what's convenient to build.
+</Callout>
+
+Applied to the same returns-processing scenario, that framework produces a very different picture than "the returns agent is 80% autonomous":
+
+| Action | Autonomy level | Reason |
+|---|---|---|
+| Look up order status | Autonomous | Read-only, no downstream effect if it's wrong |
+| Issue refund under $50 | Autonomous | Small dollar amount, low fraud exposure, easy to unwind |
+| Issue refund over $50 | Approval-required | Real financial exposure and harder to claw back once processed |
+| Flag account for potential fraud | Suggest-only | A wrong accusation damages a real customer relationship and needs human judgment |
+| Update customer contact record | Approval-required | Touches PII and can lock a customer out of their own account if it's wrong |
+
+Five actions, three different autonomy levels, all inside one "agent." That's the point: the agent isn't one risk profile, it's a bundle of actions that each deserve their own answer.
+
+## This is a workflow redesign project, not a software integration
+
+The organizations that succeed here treat the rollout as changing how a team works, not as installing a piece of software. That means: retraining the team on the new process, redefining what the human's job looks like once the agent handles the routine cases, and building the muscle to review and correct the agent's output rather than assuming it's always right.
+
+Scaling a tool without scaling the team's capability to use it is one of the most common — and most avoidable — failure patterns in this whole space. The tool doesn't create the value. The redesigned workflow, used well by a team that trusts it appropriately, creates the value.
+
+## Checklist before you move to Module 6
+
+- [ ] Every system the agent reads from or writes to is mapped, with an owner for each
+- [ ] Someone has audited source data freshness and consistency, not assumed it
+- [ ] Autonomy levels are assigned per action, not as one blanket setting
+- [ ] The team's workflow — not just the software — has an explicit transition plan
