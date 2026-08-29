@@ -59,7 +59,7 @@ export const cases: CaseStudy[] = [
   },
   {
     title: "Why 95% of integrated pilots show no P&L impact",
-    org: "Aggregate enterprise data, 2026",
+    org: "Aggregate enterprise data, 2025",
     industry: "Cross-industry",
     function: "Strategy / Operations",
     stage: "Pilot",
@@ -67,8 +67,8 @@ export const cases: CaseStudy[] = [
       "Analysis of enterprise AI pilots found the dominant failure pattern wasn't model quality — it was treating AI deployment as a technology project instead of a workflow change, with no owner accountable for production adoption.",
     result:
       "The pilots that did show P&L impact had a named business owner, a pre-defined success metric, and integration into an existing (not synthetic) workflow.",
-    sourceUrl: "https://writer.com/blog/enterprise-ai-adoption-2026/",
-    sourceName: "WRITER — Enterprise AI Adoption in 2026",
+    sourceUrl: "https://fortune.com/2025/08/18/mit-report-95-percent-generative-ai-pilots-at-companies-failing-cfo/",
+    sourceName: "Fortune — MIT report: 95% of generative AI pilots at companies are failing",
   },
   {
     title: "Agent sprawl as the dominant 2026 enterprise AI risk",
@@ -77,11 +77,11 @@ export const cases: CaseStudy[] = [
     function: "Governance / Security",
     stage: "Govern",
     summary:
-      "94% of enterprises report AI agent sprawl — agents built independently across teams and frameworks — as a rising security and operational risk, and 82% already have agents or workflows their security team didn't know existed.",
+      "94% of enterprises report AI agent sprawl, agents built independently across teams and frameworks, as a growing security and operational risk (OutSystems, State of AI Development 2026), and 82% have discovered at least one AI agent or workflow running that their security team didn't know about in the past year (Cloud Security Alliance and Token Security, Autonomous but Not Controlled, 2026).",
     result:
-      "Only 21% of organizations report a mature governance model, despite 74% planning agentic AI adoption within two years — the gap between adoption speed and governance maturity is the headline risk of the period.",
-    sourceUrl: "https://zylos.ai/research/2026-05-01-ai-agent-governance-compliance-2026/",
-    sourceName: "Zylos Research — AI Agent Governance and Compliance in 2026",
+      "Only 21% of organizations report a mature governance model for agentic AI, despite 74% expecting to be running AI agents by 2027 (Deloitte, State of AI in the Enterprise 2026). The gap between adoption speed and governance maturity is the headline risk of the period.",
+    sourceUrl: "https://www.deloitte.com/us/en/about/press-room/state-of-ai-report-2026.html",
+    sourceName: "Deloitte — State of AI in the Enterprise 2026",
   },
   {
     title: "First comprehensive agentic AI governance framework",
