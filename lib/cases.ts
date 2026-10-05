@@ -59,16 +59,16 @@ export const cases: CaseStudy[] = [
   },
   {
     title: "Why 95% of integrated pilots show no P&L impact",
-    org: "Aggregate enterprise data, 2026",
+    org: "MIT NANDA research, 2025",
     industry: "Cross-industry",
     function: "Strategy / Operations",
     stage: "Pilot",
     summary:
-      "Analysis of enterprise AI pilots found the dominant failure pattern wasn't model quality — it was treating AI deployment as a technology project instead of a workflow change, with no owner accountable for production adoption.",
+      "MIT's Project NANDA reviewed 300+ disclosed enterprise AI deployments, interviewed leaders at 52 organizations, and surveyed 153 senior leaders. The dominant failure pattern wasn't model quality — it was treating AI deployment as a technology project instead of a workflow change, with no owner accountable for production adoption.",
     result:
-      "The pilots that did show P&L impact had a named business owner, a pre-defined success metric, and integration into an existing (not synthetic) workflow.",
-    sourceUrl: "https://writer.com/blog/enterprise-ai-adoption-2026/",
-    sourceName: "WRITER — Enterprise AI Adoption in 2026",
+      "The pilots that did show P&L impact had implementation ownership with domain leaders and frontline managers (not a centralized AI lab), a narrow workflow-specific scope, and direct embedding into existing tools and data flows instead of a synthetic test environment.",
+    sourceUrl: "https://nanda.media.mit.edu/ai_report_2025.pdf",
+    sourceName: "MIT NANDA — The GenAI Divide: State of AI in Business 2025",
   },
   {
     title: "Agent sprawl as the dominant 2026 enterprise AI risk",
