@@ -1,9 +1,9 @@
 import { Callout } from "@/components/Callout";
 
-This is the module the data says matters most, and the one most teams get to last — if at all. 94% of enterprises now report agent sprawl as a rising security and operational risk, and 82% already have agents or workflows running that their security team didn't know existed. If Module 1 through 5 went well, this is the module that decides whether that success stays contained or turns into a liability.
+This is the module the data says matters most, and the one most teams get to last — if at all. 94% of enterprises report agent sprawl as a growing security and operational risk (OutSystems, State of AI Development 2026), and 82% have found at least one AI agent or workflow running that their security team didn't know about (Cloud Security Alliance and Token Security, 2026). If Module 1 through 5 went well, this is the module that decides whether that success stays contained or turns into a liability.
 
 <Callout type="data" title="The data">
-  74% of organizations plan to adopt agentic AI within two years. Only 21% report a mature governance model for it. That gap — adoption speed outrunning governance maturity — is the defining enterprise AI risk of the period. (Source: Zylos Research, AI Agent Governance and Compliance in 2026 — see [Case Library](/cases))
+  74% of organizations expect to be running AI agents by 2027. Only 21% report a mature governance model for it. That gap — adoption speed outrunning governance maturity — is the defining enterprise AI risk of the period. (Source: Deloitte, State of AI in the Enterprise 2026 — see [Case Library](/cases))
 </Callout>
 
 ## Why sprawl happens even when nobody's being careless
@@ -20,7 +20,7 @@ Agent sprawl isn't usually the result of recklessness. It's the predictable resu
 
 **2. A permission ceiling, set deliberately.** Not "whatever the underlying service credentials happen to allow" — an explicit, reviewed list of what this agent is allowed to touch and do. Set this before deployment, not discovered after an incident.
 
-**3. A complete audit trail.** A chronological, tamper-resistant record of every input, tool call, permission used, policy decision (permit or deny), and the reasoning step the agent generated before acting. This is what makes an agent's behavior reviewable after the fact — and it's increasingly not optional. Singapore's IMDA Model AI Governance Framework for Agentic AI, effective January 2026, requires exactly this: every agent carrying a verifiable digital identity and a full audit trail of who acted under whose authorization. The EU AI Act's full enforcement activation in August 2026 adds regulatory weight behind the same expectation.
+**3. A complete audit trail.** A chronological, tamper-resistant record of every input, tool call, permission used, policy decision (permit or deny), and the reasoning step the agent generated before acting. This is what makes an agent's behavior reviewable after the fact, and regulators are starting to expect it even before it's legally required. Singapore's IMDA published a Model AI Governance Framework for Agentic AI in January 2026, updated in May 2026, that calls for exactly this: every agent carrying a verifiable digital identity and a full audit trail of who acted under whose authorization. The framework is voluntary, but organizations stay legally accountable for what their agents do either way. The EU AI Act adds real weight for anyone operating in the EU, though less than originally planned: its transparency and general-purpose-AI rules took effect in August 2026, but a mid-2026 Digital Omnibus deal pushed the compliance deadline for high-risk AI systems, the category most agent deployments fall into, back to December 2027.
 
 <Callout type="framework" title="Minimum audit log fields">
   Agent identifier and version · delegated permissions for that execution · specific tool or API invoked · governance policy decision (permit/deny) · the reasoning step generated before acting.
